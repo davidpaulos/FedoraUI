@@ -2,7 +2,7 @@
 
 UPDATE= 'sudo dnf update'
 SEARCHA='dnf list available'
-SEARCHI='dnf list intalled'
+SEARCHI='dnf list installed'
 SEARCHGA='dnf group list available'
 SEARCHGI='dnf group list installed'
 INFO='dnf info'
@@ -51,7 +51,7 @@ function erase
 {
 	local pkg
 	local argument_input	
-	pkg="$( $SEARCHI | grep -v deinstall | sort -k1,1 -u | 
+	pkg="$( $SEARCHI | sort -k1,1 -u | 
 		fzf -i -m -e \
                     --no-sort \
                     --select-1 \
