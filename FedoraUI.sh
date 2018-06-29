@@ -1,12 +1,18 @@
 #!/bin/bash
 
-UPDATE= 'sudo dnf update'
+UPDATE='sudo dnf update'
 SEARCHA='dnf list available'
 SEARCHI='dnf list installed'
 SEARCHGA='dnf group list available'
 SEARCHGI='dnf group list installed'
 INFO='dnf info'
 INFOG='dnf info'
+INSTALL='sudo dnf install'
+ERASE='sudo dnf erase'
+INSTALLG='sudo dnf group install'
+ERASEG='sudo dnf group remove'
+CLEAN='sudo dnf clean all'
+AUTOREMOVE='sudo dnf autoremove'
 
 function install 
 {
@@ -43,7 +49,7 @@ function install
             if [[ -n "$pkg" ]]
             then 
             clear
-            sudo dnf install $pkg
+            $INSTALL $pkg
             fi
 }
 
@@ -71,15 +77,9 @@ function erase
             if [[ -n "$pkg" ]]
             then 
             clear
-            sudo dnf erase $pkg
+            $ERASE $pkg
             fi
 }
-
-function maintain
-{
-	sudo dnf cleanall
-	sudo dnf autoremove	
-	}
 
 function ui
 {
@@ -100,14 +100,15 @@ echo
     
     case "$choice" in
         1|u|update|update-system )
-            $UPDATE                                                                
+            $UPDATE                                                           
             echo
             echo -e " \e[41m System updated. To return to FedoraUI press ENTER \e[0m"
             # wait for input, e.g. by pressing ENTER:
             read
             ;;
         2|m|maintain|maintain-system )
-            maintain
+            $CLEAN
+            $AUTOREMOVE
             echo
             echo -e " \e[41m System maintenance finished. To return to FedoraUI press ENTER \e[0m"
             read
